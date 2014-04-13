@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ws chat</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/chat.js"></script>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <h1>yes no counter</h1>
+	<div id="container_wait">
+		<p>問題が開始されるまで、お待ちください</p>
+	</div>
+	<div id="container_running">
+		<h3 id="title_area"></h3>
+		<input class="btn btn-primary" id="yesbtn" type="submit" value="YES!"></input>
+		<input  class="btn btn-danger" id="nobtn" type="submit" value="NO!"></input>
+	</div>
+
+	<div id="container_result">
+		<p>先ほどの結果は以下のとおりです </p>	
+		<p>
+			<div class="answer_area" style="font-size:20px;"></div>
+		</p>
+	</div>
+
+  </body>
+</html>
