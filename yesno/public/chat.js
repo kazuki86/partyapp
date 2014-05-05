@@ -10,6 +10,8 @@ $(function() {
 
 	hideAll();
 	
+	socket.emit('joinToRoom','sample');
+
   socket.on('post', function(data) {
 	txt = data.yescount + '/' + data.allcount;
     $posts.text(txt);

@@ -17,7 +17,8 @@ $(function() {
   });
   $('#startbtn').on('click', function(e) {
 	title = $('#qttl').val();
-	alert('[' + title + ']で配信します');
-    socket_admin.emit('start', title);
+	//alert('[' + title + ']で配信します');
+    socket_admin.emit('question', title);
+    socket_admin.emit('start');
   });
 });

@@ -19,18 +19,35 @@ var io = require('socket.io')
 var admin_sockets={};
 var admin_socket;
 
+var Room = require('./room');
+var Player = require('./player');
+var AdminUser = require('./adminUser');
+
+var rooms = new Array();
+rooms['sample'] = new Room('sample');
+
+/*
 const STATE_WAIT 		= 'wait';
 const STATE_RUNNING 	= 'running';
 const STATE_RESULT 		= 'result';
 const STATE_FINISHED 	= 'finished';
+*/
 
-var state = STATE_WAIT;
+//var state = STATE_WAIT;
 io.sockets
 .on('connection', function(socket) {
-	console.log("guest connection success");
-  io.sockets.emit('login', socket.id);
-  io.sockets.emit('state', state);
+	//console.log("guest connection success");
+  //io.sockets.emit('login', socket.id);
+  //io.sockets.emit('state', state);
 
+	socket.on('joinToRoom', function(roomName){
+		console.log("joinToRoom called");
+		if( roomName in rooms ){
+			rooms[roomName].joinPlayer(new Player(this));
+		}
+		
+	});
+/*
   socket.on('post', function(data) {
 	allcount++;
 	if(data==true){
@@ -41,6 +58,7 @@ io.sockets
 		yescount: yescount
 	 });
   });
+*/
 });
 
 /*
@@ -49,10 +67,17 @@ io.sockets
 
 io.of('/admin').on('connection',function(socket){
 	console.log("admin connection success");
-    //io.sockets.emit('welcome', socket.id);
-	socket.emit('welcome',socket.id);
+
+	var roomName = 'sample';
+	if( roomName in rooms ){
+		rooms[roomName].addAdmin(new AdminUser(socket));
+	}
+
+/*
 	admin_sockets[socket.id] = socket;
 	admin_socket = socket;
+
+	rooms['sample'].addAdmin(socket);
   socket.on('reset', function(data) {
 	state = STATE_RESULT;
     io.sockets.emit('state',state); 
@@ -71,5 +96,6 @@ io.of('/admin').on('connection',function(socket){
 		title:title
 	});
   });
+*/
 });
 
